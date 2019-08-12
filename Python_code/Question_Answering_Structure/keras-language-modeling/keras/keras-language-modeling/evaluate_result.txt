@@ -1,0 +1,292 @@
+Deep learning:
+
+conf = {
+    'n_words': 23,
+    'question_len': 158,
+    'answer_len': 158,
+    'margin': 0.009,
+    'initial_embed_weights':'../../../Chord_embedding_data/0517/Chord_embedding_sum_lookup',
+
+‘'similarity': {
+        'mode': 'cosine',
+        'gamma': 1,
+        'c': 1,
+        'd': 2,
+        'dropout': 0.5,
+    }
+}
+
+
+(1).
+    testdata:1000首有兩張以上的譜
+    chord-embedding:500-dim
+    CNN :
+        architec:2
+        filter:1000
+    train epoch:100
+    Top-1 Precision: 0.44 
+
+(1).
+    testdata:1000首有兩張以上的譜
+    chord-embedding:100-dim
+    CNN :
+        architec:2
+        filter:1000
+    train epoch:2
+    Top-1 Precision: 0.421000 
+
+
+
+(2).
+    testdata:1000首有兩張以上的譜
+    chord-embedding:100-dim
+    CNN :
+        architec:2
+        filter:4000
+    train epoch:2
+    Best: Loss = 0.0022
+    Top-1 Precision: 0.418000
+    
+    
+(3).
+    testdata:1000首有兩張以上的譜
+    chord-embedding:100-dim
+    CNN :
+        architec:2 最後一層pooling+tanh
+        filter:1000
+    train epoch:2
+    Best: Loss = 0.0054(initial loss是沒有tanh的5倍)
+    Top-1 Precision: 0.418000
+    
+    
+    
+(4).
+    Date:0609/01
+    traindata:Bad Answer訂Threshold
+    testdata:1000首有兩張以上的譜
+    chord-embedding:100-dim
+    CNN :
+        architec:2 
+        filter:1000
+    train epoch:2
+    Best: Loss =  0.0030
+    Top-1 Precision: 0.412000
+(5).
+    Date:0612 -1
+    traindata:原曲和弦序列與每張吉他譜先做DTW對齊
+    testdata:1000首有兩張以上的譜
+    chord-embedding:100-dim
+    CNN :
+        architec:2 
+        filter:1000
+    train epoch:10
+    Best: Loss =  0.0014
+    Top-1 Precision: 0.436000
+(6).
+    Date:0612 -2
+    traindata:2510首有兩張以上的譜，Bad Answer原曲和弦序列與每張吉他譜先做DTW對齊
+    testdata:1000首有兩張以上的譜
+    chord-embedding:100-dim
+    CNN :
+        architec:2 
+        filter:1000
+    train epoch:10
+    Best: Loss =  0.0004
+    Top-1 Precision: 0.438000
+(7).
+    Date:0612 -3
+    traindata:2510首有兩張以上的譜，取高Visitors的譜做為Good Answer，次高的譜作為Bad Answer
+    testdata:1000首有兩張以上的譜
+    chord-embedding:500-dim
+    CNN :
+        architec:2 
+        filter:1000
+    train epoch:10
+    margin=0.015
+    
+    Top-1 Precision: 0.429000
+(8).Date:0614 -1
+    traindata:8000多首歌，Bad Answers訂Threshold:4.5顆星以上
+    testdata:1000首有兩張以上的譜
+    chord-embedding:100-dim
+    CNN :
+        architec:2 
+        filter:1000
+    train epoch:100
+    margin=0.011
+    
+    Top-1 Precision: 0.426000
+(8).Date:0614 -2
+    traindata:3000首歌有兩張譜以上的歌，Bad Answers先與songs和弦序列做DTW對齊
+    testdata:1000首有兩張以上的譜
+    chord-embedding:100-dim
+    CNN :
+        architec:2 
+        filter:1000
+    train epoch:100
+    margin=0.015
+    Best: Loss = 0.0003
+    Top-1 Precision: 0.457000
+(9).Date:0614 -3
+    traindata:3000首歌有兩張譜以上的歌，Bad Answers先與songs和弦序列做DTW對齊
+    testdata:1000首有兩張以上的譜
+    similarity:gesd
+    gamma:0.1
+    chord-embedding:100-dim
+    CNN :
+        architec:2 
+        filter:1000
+    train epoch:100
+    margin=0.02
+    Best: Loss = 0.0010,at Epoch 50
+    
+    Top-1 Precision: 0.422000
+(10).
+    Date:0614 -5
+    traindata:3000首歌有兩張譜以上的歌，Bad Answers先與songs和弦序列做DTW對齊
+    testdata:1000首有兩張以上的譜
+    similarity:cosine
+    gamma:0.1
+    chord-embedding:100-dim
+    Model:ConvolutionalLSTM
+    train epoch:100
+    margin=0.02
+    Best: Loss = 0.0003,at Epoch 70
+    
+    Top-1 Precision: 0.414000
+(11).
+    Date:0619 -1
+    traindata:8000多首歌
+    testdata:1000首有兩張以上的譜
+    similarity:cosine
+    gamma:0.2
+    chord-embedding:100-dim
+    Model:Convolutional
+    train epoch:100
+    margin=0.02
+    Best: Loss =  0.0030,at Epoch = 83
+    
+    Top-1 Precision: 0.440000
+(12).
+    Date:0619 -2
+    traindata:8000多首歌
+    testdata:1000首有兩張以上的譜
+    similarity:cosine
+    gamma:0.2
+    chord-embedding:100-dim
+    Model:Convolutional,#filters=4000
+    train epoch:100
+    margin=0.02
+    Best: Loss =  0.0020,at Epoch = 63
+    
+    Top-1 Precision: 0.442000
+(13).
+    Date:0619 -3
+    traindata:8000多首歌，歌曲與吉他譜和弦序列做DTW對齊
+    testdata:1000首有兩張以上的譜
+    similarity:cosine
+    gamma:0.2
+    chord-embedding:100-dim
+    Model:Convolutional,#filters=4000
+    train epoch:100
+    margin=0.02
+    Best: Loss =  0.0005,at Epoch = 87
+    
+    Top-1 Precision: 0.40
+(13).
+    Date:0619 -3
+    traindata:8000多首歌，歌曲與吉他譜和弦序列做DTW對齊
+    testdata:1000首有兩張以上的譜
+    similarity:cosine
+    gamma:0.2
+    chord-embedding:100-dim
+    Model:Convolutional,#filters=500
+    train epoch:100
+    margin=0.02
+    Best: Loss =  0.0033,at Epoch = 81
+    
+    Top-1 Precision: 0.435000
+(14).
+    Date:0624 01
+    traindata:8000多首歌
+    testdata:927首有四張以上的譜
+    similarity:cosine
+    gamma:0.2
+    chord-embedding:100-dim
+    Model:Convolutional,#filters=1000
+    train epoch:100
+    margin=0.02
+    Best: Loss =  0.0032,at Epoch = 63
+    
+    Top-1 Precision: 0.231931
+    Top-3 Precision: 0.477526
+(15).
+    Date:0624 02
+    traindata:9000多首歌
+    testdata:541首有五張以上的譜
+    similarity:cosine
+    gamma:0.2
+    chord-embedding:100-dim
+    Model:Convolutional,#filters=1000
+    train epoch:100
+    margin=0.02
+    Best: Loss =  0.0035,at Epoch = 56
+    
+    Top-1 Precision: 0.188540
+    Top-2 Precision: 0.360444
+    Top-3 Precision: 0.537893
+    Top-4 Precision: 0.696858
+    kendall-tau:0.06
+    p-value:0.49
+(16).
+    Date:0624 03
+    traindata:9000多首歌
+    testdata:1700首有三張以上的譜
+    similarity:cosine
+    gamma:0.2
+    chord-embedding:100-dim
+    Model:Convolutional,#filters=1000
+    train epoch:100
+    margin=0.02
+    Best: Loss =  0.0033,at Epoch = 75
+    
+    Top-1 Precision: 0.275682
+    Top-2 Precision: 0.529890
+    
+######################################################
+
+DTW:
+
+(1).
+
+    cost:jaccard_similarity
+    Top-1 Precision: 0.435000
+(2).
+    #Test song:1000首歌，譜數沒訂
+    cost:LevenshteinDistcance
+    Top-1 Precision: 0.414000
+    
+    kendall-tau:-0.00448102823729481
+    
+    #Test song 541首歌 至少5張譜以上
+    Top-n Precision: 0.168207 n= 1
+    Top-n Precision: 0.319778 n= 2
+    Top-n Precision: 0.482440 n= 3
+    Top-n Precision: 0.652495 n= 4
+    
+    kendall-tau: 0.003435511861357931
+    kendall-tau pvalue: 0.4896864924515967
+    
+
+(3).Test song:1000首歌，譜數沒訂，吉他譜採原play調
+    cost:LevenshteinDistcance
+    Top-1 Precision: 0.410000
+    kendall-tau: 0.032046652415083005
+    
+    
+Chord histogram:
+(1).
+    Test song:1000首歌，譜數沒訂，吉他譜採原play調
+    Top-1 Precision: 0.409000
+(2).
+    Top-1 Precision:0.388000
